@@ -1,0 +1,42 @@
+{
+  "name": "winter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "worker": "nodemon --exec 'node src/worker/index.js' --watch worker --watch src/common -e js,json --ignore src/worker/db.json",
+    "server": "nodemon --exec 'node index.js' --watch . -e js,json --ignore src/worker/db.json --ignore dist --ignore src/worker",
+    "sass": "nodemon --exec 'yarn run build:scss' --watch src/scss -e scss,css",
+    "dev": "npx run-p worker server sass",
+    "start": "npx clean-dir dist && yarn run build:babel && yarn run build:scss && yarn run run:prod",
+    "run:prod": "node dist/index.js",
+    "build": "run-p build:babel sass:build",
+    "build:babel": "npx babel src --out-dir dist --source-maps",
+    "build:scss": "node-sass --output-style compressed src/scss/main.scss assets/style.css"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.18.3",
+    "elapsed-time": "^0.0.1",
+    "error-to-json": "^1.1.0",
+    "eval2": "^0.3.3",
+    "express": "^4.16.3",
+    "express-vue": "^5.6.5",
+    "lowdb": "^1.0.0",
+    "node-sass": "^4.9.0",
+    "nodemon": "^1.17.5",
+    "npm-run-all": "^4.1.3",
+    "object-sizeof": "^1.2.0",
+    "promise-parallel": "^1.0.1",
+    "promise-sequential": "^1.1.1",
+    "require-from-string": "^2.0.2",
+    "require-reload": "^0.2.2",
+    "rimraf": "^2.6.2",
+    "sander": "^0.6.0",
+    "shortid": "^2.2.8",
+    "socket.io": "^2.1.1",
+    "temp-dir": "^1.0.0"
+  }
+}

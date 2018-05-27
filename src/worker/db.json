@@ -1,0 +1,19 @@
+{
+  "deps": [
+    {
+      "project": 1,
+      "name": "foo",
+      "type": "action",
+      "version": 1,
+      "dependencies": [],
+      "code": "\n\t\tfunction foo(){\n\t\t\treturn new Promise((resolve,reject)=>{\n\t\t\t\t//reject(new Error('FooFail'))\n\t\t\t\t\tconsole.log('Foo!')\n\t\t\t\t\tresolve('FOO_RESULT')\n\t\t\t\t\n\t\t\t})\n\t\t\t\n\t\t}\n\t\tasync function test(){\n\t\t\tawait foo();\n\t\t\treturn true;\n\t\t}\n\t\t"
+    },
+    {
+      "name": "bar",
+      "dependencies": [
+        "foo"
+      ],
+      "code": "\n\t\tasync function bar(){\n\t\t\tconsole.log('Bar start')\n\t\t\tvar fooR = await foo()\n\t\t\tconsole.log('Bar end')\n\t\t\treturn fooR;\n\t\t}\n\t\tasync function test(){\n\t\t\tawait bar();\n\t\t\treturn true;\n\t\t}\n\t\t"
+    }
+  ]
+}
